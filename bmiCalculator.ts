@@ -1,3 +1,23 @@
+interface ParseResult {
+    val1: number,
+    val2: number
+}
+
+const parseArgs = (val1: string, val2: string): ParseResult => {
+    const parsedVal1: number = Number(val1);
+    const parsedVal2: number = Number(val2);
+
+    if (isNaN(parsedVal1) || isNaN(parsedVal2)) {
+        throw new Error('Passed arguments are not numbers!');
+    } else {
+        return {
+            val1: parsedVal1,
+            val2: parsedVal2
+        }
+    }
+}
+
+
 const calculateBmi = (height: number, weight: number): string => {
     const BMI: number = weight / ((height / 100) * (height / 100));
     if (BMI <= 15) {
@@ -19,4 +39,9 @@ const calculateBmi = (height: number, weight: number): string => {
     }
 }
 
-console.log(calculateBmi(180, 74));
+try {
+    const values: ParseResult = parseArgs(process.argv[2], process.argv[3]);
+    console.log(calculateBmi(values["val1"], values["val2"]));
+} catch (e) {
+    console.log('Error, message:', e.message);
+}
