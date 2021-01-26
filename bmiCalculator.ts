@@ -1,9 +1,9 @@
 interface ParseResult {
-    val1: number,
-    val2: number
+    weight: number,
+    height: number
 }
 
-const parseArgs = (val1: string, val2: string): ParseResult => {
+const parseArgs = (val1: string | undefined, val2: string | undefined): ParseResult => {
     const parsedVal1: number = Number(val1);
     const parsedVal2: number = Number(val2);
 
@@ -11,8 +11,8 @@ const parseArgs = (val1: string, val2: string): ParseResult => {
         throw new Error('Passed arguments are not numbers!');
     } else {
         return {
-            val1: parsedVal1,
-            val2: parsedVal2
+            weight: parsedVal1,
+            height: parsedVal2
         }
     }
 }
@@ -34,14 +34,19 @@ const calculateBmi = (height: number, weight: number): string => {
         return 'Obese Class I (Moderately obese)';
     } else if (BMI > 35 && BMI <= 40) {
         return 'Obese Class II (Severely obese)';
-    } else if (BMI > 40) {
+    } else {
         return 'Obese Class III (Very severely obese)';
     }
 }
 
 try {
     const values: ParseResult = parseArgs(process.argv[2], process.argv[3]);
-    console.log(calculateBmi(values["val1"], values["val2"]));
+    console.log(calculateBmi(values["weight"], values["height"]));
 } catch (e) {
     console.log('Error, message:', e.message);
+}
+
+export {
+    calculateBmi,
+    parseArgs
 }
