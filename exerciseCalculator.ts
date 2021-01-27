@@ -25,9 +25,9 @@ const parseArgsDays = (args: Array<string>): ParseResultDays => {
         return {
             target,
             daysArray
-        }
+        };
     }
-}
+};
 
 const calculateExercises = (days: Array<number>, target: number): TrainingResult => {
     const periodLength: number = days.length;
@@ -48,11 +48,13 @@ const calculateExercises = (days: Array<number>, target: number): TrainingResult
         target,
         average
     };
-}
+};
 
 try {
     const args = parseArgsDays(process.argv);
     console.log(calculateExercises(args.daysArray, args.target));
 } catch (e) {
-    console.log('Error, message:', e.message);
+    if (e instanceof Error) {
+        console.log('Error, message:', e.message);
+    }
 }

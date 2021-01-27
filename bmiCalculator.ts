@@ -3,9 +3,10 @@ interface ParseResult {
     height: number
 }
 
+
 const parseArgs = (val1: string | undefined, val2: string | undefined): ParseResult => {
-    const parsedVal1: number = Number(val1);
-    const parsedVal2: number = Number(val2);
+    const parsedVal1 = Number(val1);
+    const parsedVal2 = Number(val2);
 
     if (isNaN(parsedVal1) || isNaN(parsedVal2)) {
         throw new Error('Passed arguments are not numbers!');
@@ -13,9 +14,9 @@ const parseArgs = (val1: string | undefined, val2: string | undefined): ParseRes
         return {
             weight: parsedVal1,
             height: parsedVal2
-        }
+        };
     }
-}
+};
 
 
 const calculateBmi = (height: number, weight: number): string => {
@@ -37,16 +38,18 @@ const calculateBmi = (height: number, weight: number): string => {
     } else {
         return 'Obese Class III (Very severely obese)';
     }
-}
+};
 
 try {
     const values: ParseResult = parseArgs(process.argv[2], process.argv[3]);
     console.log(calculateBmi(values["weight"], values["height"]));
 } catch (e) {
-    console.log('Error, message:', e.message);
+    if (e instanceof Error) {
+        console.log('Error, message:', e.message);
+    }
 }
 
 export {
     calculateBmi,
     parseArgs
-}
+};
