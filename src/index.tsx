@@ -1,17 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import Header from "./components/Header";
+import Content from "./components/Content";
+import {CoursePart} from "./types";
+import Total from "./components/Total";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const App: React.FC = () => {
+    const courseName = "Half Stack application development";
+    const courseParts: Array<CoursePart> = [
+        {
+            name: "Fundamentals",
+            exerciseCount: 10
+        },
+        {
+            name: "Using props to pass data",
+            exerciseCount: 7
+        },
+        {
+            name: "Deeper type usage",
+            exerciseCount: 14
+        }
+    ];
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    return (
+        <div>
+            <Header name={courseName}/>
+            <Content courseParts={courseParts}/>
+            <Total totalExercises={courseParts.reduce((carry, part) => carry + part.exerciseCount, 0)}/>
+        </div>
+    );
+};
+
+ReactDOM.render(<App />, document.getElementById("root"));
