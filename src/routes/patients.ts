@@ -1,6 +1,7 @@
 import express from 'express';
 import patientService from "../services/patientService";
 import toNewPatient from "../utils";
+import {Patient} from "../types";
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router.post('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    const patient = patientService.getPatient(req.params.id);
+    const patient: Patient | undefined = patientService.getPatient(req.params.id);
 
     res.send(patient);
 })

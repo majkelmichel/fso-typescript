@@ -1,4 +1,4 @@
-import {Gender, NewPatient} from "./types";
+import {Entry, Gender, NewPatient} from "./types";
 
 
 const isString = (text: any): text is string => {
@@ -51,13 +51,22 @@ const parseOccupation = (occupation: any): string => {
     return occupation;
 };
 
+const parseEntries = (entries: Entry[]): Entry[] => {
+    if (!entries) {
+        throw new Error('Incorrect or missing Entries: ' + entries);
+    }
+
+    return entries;
+}
+
 const toNewPatient = (object: any): NewPatient => {
     return {
         name: parseName(object.name),
         dateOfBirth: parseDate(object.dateOfBirth),
         ssn: parseSSN(object.ssn),
         gender: parseGender(object.gender),
-        occupation: parseOccupation(object.occupation)
+        occupation: parseOccupation(object.occupation),
+        entries: parseEntries(object.entries)
     };
 };
 
