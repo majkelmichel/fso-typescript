@@ -24,6 +24,12 @@ router.get('/:id', (req, res) => {
     const patient: Patient | undefined = patientService.getPatient(req.params.id);
 
     res.send(patient);
-})
+});
+
+router.post('/:id', ((req, res) => {
+    const patientID: string = req.params.id;
+    const newEntry = patientService.addEntry(req.body, patientID);
+    res.send(newEntry);
+}))
 
 export default router;
